@@ -1,0 +1,88 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЭкоКарта - Отметь загрязнение</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=5c7f6ec4-4274-4a75-9309-1b8dc576e7c7&lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="logo">
+            <svg width="32" height="32" viewBox="0 0 32 32">
+                <circle cx="16" cy="16" r="15" fill="#4CAF50" stroke="#388E3C"/>
+                <path d="M16 8 L16 24 M8 16 L24 16" stroke="white" stroke-width="2"/>
+            </svg>
+            <span>ЭкоКарта</span>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="active">Карта</a>
+            <a href="#" id="profile-link">Профиль</a>
+        </div>
+    </nav>
+
+    <main>
+        <div id="map"></div>
+        
+        <div id="profile-panel" class="hidden">
+            <h2>Профиль</h2>
+            <div class="tasks">
+                <h3>Текущие задания</h3>
+                <div class="task-list">
+                    <div class="task">
+                        <h4>Отметить 3 точки загрязнения</h4>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 33%"></div>
+                        </div>
+                    </div>
+                    <div class="task">
+                        <h4>Проверить 5 меток других пользователей</h4>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 20%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button id="add-pollution" class="fab" disabled>
+            <svg width="24" height="24" viewBox="0 0 24 24">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="white"/>
+            </svg>
+        </button>
+    </main>
+
+    <div id="pollution-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Добавить точку загрязнения</h3>
+            <form id="pollution-form" method="post" enctype="multipart/form-data">
+                <select name="type" required>
+                    <option value="">Выберите тип загрязнения</option>
+                    <option value="trash">Мусор</option>
+                    <option value="chemical">Химические отходы</option>
+                    <option value="other">Другое</option>
+                </select>
+                <textarea name="description" placeholder="Описание проблемы" required></textarea>
+                <input type="file" name="files" multiple>
+                <div id="image-preview" class="image-preview"></div>
+                <input type="range" name="points" min="10" max="1000" value="10" oninput="this.nextElementSibling.value = this.value">
+                <output>10</output>
+                <button type="submit">Добавить</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="auth-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Авторизация</h3>
+            <form id="auth-form">
+                <input type="text" name="login" placeholder="Логин" required>
+                <input type="password" name="password" placeholder="Пароль" required>
+                <button type="submit">Войти</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
