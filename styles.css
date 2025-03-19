@@ -214,3 +214,22 @@ body {
     border: 1px solid #ddd;
 }
 
+
+.difficulty {
+    display: flex;
+    gap: 4px;
+}
+.difficulty .bar {
+    width: 10px;
+    height: 10px;
+    background-color: lightgray;
+}
+.difficulty .bar.green {
+    background-color: green;
+}
+.difficulty .bar.yellow {
+    background-color: yellow;
+}
+.difficulty .bar.red {
+    background-color: red;
+}

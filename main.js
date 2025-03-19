@@ -165,6 +165,12 @@ function addPollutionPoint(coords, data) {
             <div class="balloon-content">
                 <h3>Тип загрязнения: ${data.type}</h3>
                 <p><strong>Описание:</strong> ${data.description}</p>
+                <p><strong>Очки:</strong> ${data.points}</p>
+                <div class="difficulty">
+                    <span class="bar ${data.difficulty === 'EASY' ? 'green' : ''}"></span>
+                    <span class="bar ${data.difficulty === 'MEDIUM' ? 'yellow' : data.difficulty === 'HARD' ? 'yellow' : ''}"></span>
+                    <span class="bar ${data.difficulty === 'HARD' ? 'red' : ''}"></span>
+                </div>
                 <div class="balloon-images">
                     ${data.images.map(image => `<img src="${image.url}" alt="Image">`).join('')}
                 </div>
