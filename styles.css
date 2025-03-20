@@ -189,15 +189,22 @@ body {
 .balloon-content {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     color: #333;
+    padding: 1rem;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
 }
 
 .balloon-content h3 {
     margin-bottom: 0.5rem;
     color: #4CAF50;
+    font-size: 1.25rem;
 }
 
 .balloon-content p {
     margin-bottom: 1rem;
+    font-size: 0.875rem;
 }
 
 .balloon-images {
@@ -214,22 +221,28 @@ body {
     border: 1px solid #ddd;
 }
 
-
 .difficulty {
     display: flex;
     gap: 4px;
+    margin-top: 1rem;
+    width: 100%;
 }
+
 .difficulty .bar {
-    width: 10px;
+    flex: 1;
     height: 10px;
     background-color: lightgray;
+    border-radius: 2px;
 }
+
 .difficulty .bar.green {
     background-color: green;
 }
+
 .difficulty .bar.yellow {
     background-color: yellow;
 }
+
 .difficulty .bar.red {
     background-color: red;
 }

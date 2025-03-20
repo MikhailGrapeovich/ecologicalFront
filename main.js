@@ -114,7 +114,7 @@ function setupEventListeners() {
         const password = authForm.password.value;
 
         try {
-            const response = await fetch('http://localhost:8000/api/v1/login/access-token', {
+            const response = await fetch('http://localhost:8001/api/v1/login/access-token', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -167,8 +167,8 @@ function addPollutionPoint(coords, data) {
                 <p><strong>Описание:</strong> ${data.description}</p>
                 <p><strong>Очки:</strong> ${data.points}</p>
                 <div class="difficulty">
-                    <span class="bar ${data.difficulty === 'EASY' ? 'green' : ''}"></span>
-                    <span class="bar ${data.difficulty === 'MEDIUM' ? 'yellow' : data.difficulty === 'HARD' ? 'yellow' : ''}"></span>
+                    <span class="bar ${data.difficulty === 'EASY' ? 'green' : data.difficulty === 'MEDIUM' ? 'yellow' : ''}"></span>
+                    <span class="bar ${data.difficulty === 'MEDIUM' ? 'yellow' : data.difficulty === 'HARD' ? 'red' : ''}"></span>
                     <span class="bar ${data.difficulty === 'HARD' ? 'red' : ''}"></span>
                 </div>
                 <div class="balloon-images">
@@ -187,7 +187,7 @@ function addPollutionPoint(coords, data) {
 async function saveFormData(formData) {
     const token = getToken();
 
-    const response = await fetch('http://localhost:8000/api/v1/pollution', {
+    const response = await fetch('http://localhost:8001/api/v1/pollution', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`
@@ -203,7 +203,7 @@ async function saveFormData(formData) {
 }
 
 function loadPollutions() {
-    fetch('http://localhost:8000/api/v1/pollution', {
+    fetch('http://localhost:8001/api/v1/pollution', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
