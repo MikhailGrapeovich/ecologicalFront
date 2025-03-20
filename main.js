@@ -162,18 +162,9 @@ function setupEventListeners() {
 function addPollutionPoint(coords, data) {
     const placemark = new ymaps.Placemark(coords, {
         balloonContent: `
-            <div class="balloon-content">
+            <div class="balloon-content" onclick="showDetailedPollution(${data.id})">
                 <h3>Тип загрязнения: ${data.type}</h3>
-                <p><strong>Описание:</strong> ${data.description}</p>
                 <p><strong>Очки:</strong> ${data.points}</p>
-                <div class="difficulty">
-                    <span class="bar ${data.difficulty === 'EASY' ? 'green' : data.difficulty === 'MEDIUM' ? 'yellow' : data.difficulty === 'HARD' ? 'red' : ''}"></span>
-                    <span class="bar ${data.difficulty === 'MEDIUM' ? 'yellow' : data.difficulty === 'HARD' ? 'red' : ''}"></span>
-                    <span class="bar ${data.difficulty === 'HARD' ? 'red' : ''}"></span>
-                </div>
-                <div class="balloon-images">
-                    ${data.images.map(image => `<img src="${image.url}" alt="Image">`).join('')}
-                </div>
             </div>
         `
     }, {
@@ -182,6 +173,37 @@ function addPollutionPoint(coords, data) {
 
     myMap.geoObjects.add(placemark);
     coords = null;
+}
+
+function showDetailedPollution(id) {
+    fetch(`http://localhost:8001/api/v1/pollution/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('detailed-pollution-type').textContent = data.type;
+        document.getElementById('detailed-pollution-description').textContent = data.description;
+        document.getElementById('detailed-pollution-points').textContent = data.points;
+        
+        const difficultyContainer = document.getElementById('detailed-pollution-difficulty');
+        difficultyContainer.innerHTML = `
+            <span class="bar ${data.difficulty === 'EASY' ? 'green' : data.difficulty === 'MEDIUM' ? 'yellow' : data.difficulty === 'HARD' ? 'red' : ''}"></span>
+            <span class="bar ${data.difficulty === 'MEDIUM' ? 'yellow' : data.difficulty === 'HARD' ? 'red' : ''}"></span>
+            <span class="bar ${data.difficulty === 'HARD' ? 'red' : ''}"></span>
+        `;
+
+        const imagesContainer = document.getElementById('detailed-pollution-images');
+        imagesContainer.innerHTML = data.images.map(image => `<img src="${image.url}" alt="Image">`).join('');
+
+        toggleModal(document.getElementById('detailed-pollution-modal'));
+    })
+    .catch(error => {
+        console.error('Ошибка загрузки данных: ' + error);
+        alert('Произошла ошибка при загрузке данных.');
+    });
 }
 
 async function saveFormData(formData) {

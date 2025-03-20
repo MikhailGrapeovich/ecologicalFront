@@ -72,6 +72,17 @@
         </div>
     </div>
 
+    <div id="detailed-pollution-modal" class="detailed-pollution-modal hidden">
+        <div class="detailed-pollution-modal-content">
+            <h3 id="detailed-pollution-type"></h3>
+            <p><strong>Описание:</strong> <span id="detailed-pollution-description"></span></p>
+            <p><strong>Очки:</strong> <span id="detailed-pollution-points"></span></p>
+            <div class="difficulty" id="detailed-pollution-difficulty"></div>
+            <div class="balloon-images" id="detailed-pollution-images"></div>
+            <button onclick="toggleModal(document.getElementById('detailed-pollution-modal'))">Закрыть</button>
+        </div>
+    </div>
+
     <div id="auth-modal" class="modal hidden">
         <div class="modal-content">
             <h3>Авторизация</h3>

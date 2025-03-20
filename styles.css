@@ -246,3 +246,27 @@ body {
 .difficulty .bar.red {
     background-color: red;
 }
+
+.detailed-pollution-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detailed-pollution-modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+}
+
+.detailed-pollution-modal.hidden {
+    display: none;
+}
