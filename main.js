@@ -167,7 +167,7 @@ function addPollutionPoint(coords, data) {
                 <p><strong>Описание:</strong> ${data.description}</p>
                 <p><strong>Очки:</strong> ${data.points}</p>
                 <div class="difficulty">
-                    <span class="bar ${data.difficulty === 'EASY' ? 'green' : data.difficulty === 'MEDIUM' ? 'yellow' : ''}"></span>
+                    <span class="bar ${data.difficulty === 'EASY' ? 'green' : data.difficulty === 'MEDIUM' ? 'yellow' : data.difficulty === 'HARD' ? 'red' : ''}"></span>
                     <span class="bar ${data.difficulty === 'MEDIUM' ? 'yellow' : data.difficulty === 'HARD' ? 'red' : ''}"></span>
                     <span class="bar ${data.difficulty === 'HARD' ? 'red' : ''}"></span>
                 </div>
