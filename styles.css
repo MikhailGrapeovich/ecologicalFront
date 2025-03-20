@@ -85,8 +85,8 @@ body {
 
 .modal-content {
     background: white;
-    padding: 2rem;
-    border-radius: 8px;
+    padding: 2rem 3rem;
+    border-radius: 12px;
     width: 90%;
     max-width: 500px;
 }
@@ -103,15 +103,23 @@ body {
 }
 
 #pollution-form select,
-#pollution-form textarea {
-    padding: 0.5rem;
+#pollution-form textarea,
+#pollution-form input[type="file"],
+#pollution-form input[type="range"],
+#pollution-form button {
+    padding: 0.75rem;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 8px;
+    font-size: 1rem;
 }
 
 #pollution-form textarea {
-    height: 100px;
+    height: 120px;
     resize: vertical;
+}
+
+#pollution-form input[type="file"] {
+    border: none;
 }
 
 #pollution-form input[type="range"] {
@@ -124,8 +132,13 @@ body {
     background: #4CAF50;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#pollution-form button:hover {
+    background: #45A049;
 }
 
 #profile-panel {
@@ -180,9 +193,9 @@ body {
 }
 
 .image-preview img {
-    max-width: 100px;
-    max-height: 100px;
-    border-radius: 4px;
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 8px;
     object-fit: cover;
 }
 
@@ -261,12 +274,35 @@ body {
 
 .detailed-pollution-modal-content {
     background: white;
-    padding: 2rem;
-    border-radius: 8px;
+    padding: 2rem 3rem;
+    border-radius: 12px;
     width: 90%;
     max-width: 500px;
 }
 
 .detailed-pollution-modal.hidden {
     display: none;
+}
+
+.detailed-pollution-modal-content button {
+    padding: 0.75rem 1.5rem;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1rem;
+}
+
+.detailed-pollution-modal-content button:hover {
+    background: #45A049;
+}
+
+.detailed-pollution-modal-content .balloon-images img {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid #ddd;
 }
