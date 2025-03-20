@@ -198,11 +198,68 @@ function showDetailedPollution(id) {
         const imagesContainer = document.getElementById('detailed-pollution-images');
         imagesContainer.innerHTML = data.images.map(image => `<img src="${image.url}" alt="Image">`).join('');
 
+        // Show or hide join/leave buttons based on user participation
+        const joinButton = document.getElementById('join-task-button');
+        const leaveButton = document.getElementById('leave-task-button');
+        if (data.isUserParticipating) {
+            joinButton.classList.add('hidden');
+            leaveButton.classList.remove('hidden');
+        } else {
+            joinButton.classList.remove('hidden');
+            leaveButton.classList.add('hidden');
+        }
+
         toggleModal(document.getElementById('detailed-pollution-modal'));
     })
     .catch(error => {
         console.error('Ошибка загрузки данных: ' + error);
         alert('Произошла ошибка при загрузке данных.');
+    });
+}
+
+function joinTask() {
+    const pollutionId = document.getElementById('detailed-pollution-type').dataset.id;
+    fetch(`http://localhost:8001/api/v1/pollution/${pollutionId}/join_performer`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${getToken()}`,
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            document.getElementById('join-task-button').classList.add('hidden');
+            document.getElementById('leave-task-button').classList.remove('hidden');
+        } else {
+            alert('Ошибка при присоединении к задаче');
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка при присоединении к задаче: ' + error);
+        alert('Произошла ошибка при присоединении к задаче.');
+    });
+}
+
+function leaveTask() {
+    const pollutionId = document.getElementById('detailed-pollution-type').dataset.id;
+    fetch(`http://localhost:8001/api/v1/pollution/${pollutionId}/leave`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${getToken()}`,
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            document.getElementById('join-task-button').classList.remove('hidden');
+            document.getElementById('leave-task-button').classList.add('hidden');
+        } else {
+            alert('Ошибка при покидании задачи');
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка при покидании задачи: ' + error);
+        alert('Произошла ошибка при покидании задачи.');
     });
 }
 
