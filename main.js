@@ -185,6 +185,7 @@ function showDetailedPollution(id) {
     .then(response => response.json())
     .then(data => {
         document.getElementById('detailed-pollution-type').textContent = data.type;
+        document.getElementById('detailed-pollution-type').dataset.id = data.id; // Add this line
         document.getElementById('detailed-pollution-description').textContent = data.description;
         document.getElementById('detailed-pollution-points').textContent = data.points;
         
@@ -218,7 +219,7 @@ function showDetailedPollution(id) {
 }
 
 function joinTask() {
-    const pollutionId = document.getElementById('detailed-pollution-type').dataset.id;
+    const pollutionId = document.getElementById('detailed-pollution-type').dataset.id; // Fix this line
     fetch(`http://localhost:8001/api/v1/pollution/${pollutionId}/join_performer`, {
         method: 'POST',
         headers: {
@@ -241,7 +242,7 @@ function joinTask() {
 }
 
 function leaveTask() {
-    const pollutionId = document.getElementById('detailed-pollution-type').dataset.id;
+    const pollutionId = document.getElementById('detailed-pollution-type').dataset.id; // Fix this line
     fetch(`http://localhost:8001/api/v1/pollution/${pollutionId}/leave`, {
         method: 'POST',
         headers: {
