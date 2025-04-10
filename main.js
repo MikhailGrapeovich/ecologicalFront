@@ -1,3 +1,5 @@
+const BASE_URL = 'https://ecomap.app.vtxhub.com/api/v1'; // Add this line
+
 let myMap;
 let profilePanel;
 let addButton;
@@ -114,7 +116,7 @@ function setupEventListeners() {
         const password = authForm.password.value;
 
         try {
-            const response = await fetch('http://localhost:8001/api/v1/login/access-token', {
+            const response = await fetch(`${BASE_URL}/login/access-token`, { // Use BASE_URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -176,7 +178,7 @@ function addPollutionPoint(coords, data) {
 }
 
 function showDetailedPollution(id) {
-    fetch(`http://localhost:8001/api/v1/pollution/${id}`, {
+    fetch(`${BASE_URL}/pollution/${id}`, { // Use BASE_URL
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -219,8 +221,8 @@ function showDetailedPollution(id) {
 }
 
 function joinTask() {
-    const pollutionId = document.getElementById('detailed-pollution-type').dataset.id; // Fix this line
-    fetch(`http://localhost:8001/api/v1/pollution/${pollutionId}/join_performer`, {
+    const pollutionId = document.getElementById('detailed-pollution-type').dataset.id;
+    fetch(`${BASE_URL}/pollution/${pollutionId}/join_performer`, { // Use BASE_URL
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${getToken()}`,
@@ -242,8 +244,8 @@ function joinTask() {
 }
 
 function leaveTask() {
-    const pollutionId = document.getElementById('detailed-pollution-type').dataset.id; // Fix this line
-    fetch(`http://localhost:8001/api/v1/pollution/${pollutionId}/leave`, {
+    const pollutionId = document.getElementById('detailed-pollution-type').dataset.id;
+    fetch(`${BASE_URL}/pollution/${pollutionId}/leave`, { // Use BASE_URL
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${getToken()}`,
@@ -267,7 +269,7 @@ function leaveTask() {
 async function saveFormData(formData) {
     const token = getToken();
 
-    const response = await fetch('http://localhost:8001/api/v1/pollution', {
+    const response = await fetch(`${BASE_URL}/pollution`, { // Use BASE_URL
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`
@@ -283,7 +285,7 @@ async function saveFormData(formData) {
 }
 
 function loadPollutions() {
-    fetch('http://localhost:8001/api/v1/pollution', {
+    fetch(`${BASE_URL}/pollution`, { // Use BASE_URL
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
