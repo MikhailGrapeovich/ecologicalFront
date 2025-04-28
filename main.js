@@ -11,6 +11,8 @@ let authModal;
 let authForm;
 let coords;
 let navLinks;
+let registerModal;
+let registerForm;
 
 // Initialize the map and UI elements
 function init() {
@@ -41,6 +43,8 @@ function initUI() {
     authModal = document.getElementById('auth-modal');
     authForm = document.getElementById('auth-form');
     navLinks = document.querySelector('.nav-links');
+    registerModal = document.getElementById('register-modal');
+    registerForm = document.getElementById('register-form');
     updateUI();
 }
 
@@ -139,6 +143,49 @@ function setupEventListeners() {
             }
         } catch (error) {
             console.error('Ошибка авторизации:', error);
+            alert('Ошибка сети или сервера');
+        }
+    });
+
+    // Handle registration form submission
+    registerForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const formData = new FormData(registerForm);
+        const password = formData.get('password');
+        const confirmPassword = formData.get('confirm_password');
+
+        if (password !== confirmPassword) {
+            alert('Пароли не совпадают!');
+            return;
+        }
+
+        const payload = {
+            username: formData.get('username'),
+            email: formData.get('email'),
+            first_name: formData.get('first_name'),
+            last_name: formData.get('last_name'),
+            age: formData.get('age'),
+            password: password,
+        };
+
+        try {
+            const response = await fetch(`${BASE_URL}/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (response.ok) {
+                alert('Регистрация прошла успешно! Теперь вы можете войти.');
+                toggleModal(registerModal);
+            } else {
+                const errorData = await response.json();
+                alert(errorData.detail || 'Ошибка регистрации');
+            }
+        } catch (error) {
+            console.error('Ошибка регистрации:', error);
             alert('Ошибка сети или сервера');
         }
     });
@@ -345,6 +392,11 @@ const updateUI = () => {
 // Function to show auth modal
 const showAuthModal = () => {
     toggleModal(authModal);
+};
+
+// Function to show registration modal
+const showRegisterModal = () => {
+    toggleModal(registerModal);
 };
 
 // Initialize when Yandex Maps API is loaded

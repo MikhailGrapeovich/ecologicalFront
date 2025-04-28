@@ -306,3 +306,30 @@ body {
     object-fit: cover;
     border: 1px solid #ddd;
 }
+
+#register-modal .modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#register-form input {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+#register-form button {
+    padding: 0.75rem;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#register-form button:hover {
+    background: #45A049;
+}
