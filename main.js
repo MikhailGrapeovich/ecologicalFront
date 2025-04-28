@@ -13,8 +13,8 @@ let coords;
 let navLinks;
 let registerModal;
 let registerForm;
+let toggleAuthFormButton;
 
-// Initialize the map and UI elements
 function init() {
     initMap();
     initUI();
@@ -22,7 +22,6 @@ function init() {
     loadPollutions();
 }
 
-// Initialize Yandex Map
 function initMap() {
     myMap = new ymaps.Map('map', {
         center: [55.76, 37.64], // Moscow coordinates as default
@@ -32,7 +31,6 @@ function initMap() {
     });
 }
 
-// Initialize UI elements
 function initUI() {
     profilePanel = document.getElementById('profile-panel');
     addButton = document.getElementById('add-pollution');
@@ -45,12 +43,11 @@ function initUI() {
     navLinks = document.querySelector('.nav-links');
     registerModal = document.getElementById('register-modal');
     registerForm = document.getElementById('register-form');
+    toggleAuthFormButton = document.getElementById('toggle-auth-form');
     updateUI();
 }
 
-// Setup event listeners
 function setupEventListeners() {
-    // Profile panel toggle
     profileLink.addEventListener('click', (e) => {
         e.preventDefault();
         if (getToken()) {
@@ -60,7 +57,6 @@ function setupEventListeners() {
         }
     });
 
-    // Add pollution point
     addButton.addEventListener('click', () => {
         if (getToken()) {
             modal.classList.remove('hidden');
@@ -69,21 +65,18 @@ function setupEventListeners() {
         }
     });
 
-    // Close pollution modal when clicking outside
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.classList.add('hidden');
         }
     });
 
-    // Close auth modal when clicking outside
     authModal.addEventListener('click', (e) => {
         if (e.target === authModal) {
             authModal.classList.add('hidden');
         }
     });
 
-    // Handle form submission
     pollutionForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -103,7 +96,6 @@ function setupEventListeners() {
         }
     });
 
-    // Handle map click
     myMap.events.add('click', function (e) {
         coords = e.get('coords');
         if (getToken()) {
@@ -113,7 +105,6 @@ function setupEventListeners() {
         }
     });
 
-    // Handle auth form submission
     authForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         const login = authForm.login.value;
@@ -147,7 +138,6 @@ function setupEventListeners() {
         }
     });
 
-    // Handle registration form submission
     registerForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         const formData = new FormData(registerForm);
@@ -190,7 +180,6 @@ function setupEventListeners() {
         }
     });
 
-    // Handle file input change to show image previews
     document.querySelector('input[name="files"]').addEventListener('change', (e) => {
         const files = e.target.files;
         const previewContainer = document.getElementById('image-preview');
@@ -205,9 +194,27 @@ function setupEventListeners() {
             reader.readAsDataURL(file);
         }
     });
+
+    // Toggle between login and registration forms
+    toggleAuthFormButton.addEventListener('click', () => {
+        const authForm = document.getElementById('auth-form');
+        const registerForm = document.getElementById('register-form');
+        const authModalTitle = document.getElementById('auth-modal-title');
+
+        if (authForm.classList.contains('hidden')) {
+            authForm.classList.remove('hidden');
+            registerForm.classList.add('hidden');
+            authModalTitle.textContent = 'Авторизация';
+            toggleAuthFormButton.textContent = 'Зарегистрироваться';
+        } else {
+            authForm.classList.add('hidden');
+            registerForm.classList.remove('hidden');
+            authModalTitle.textContent = 'Регистрация';
+            toggleAuthFormButton.textContent = 'Войти';
+        }
+    });
 }
 
-// Add pollution point to map
 function addPollutionPoint(coords, data) {
     const placemark = new ymaps.Placemark(coords, {
         balloonContent: `
@@ -354,21 +361,16 @@ function showPollutions(pollutions) {
     });
 }
 
-// Function to toggle modal visibility
 const toggleModal = (modal) => {
     modal.classList.toggle('hidden');
 };
 
-// Function to get token from localStorage
 const getToken = () => localStorage.getItem('authToken');
 
-// Function to set token in localStorage
 const setToken = (token) => localStorage.setItem('authToken', token);
 
-// Function to remove token from localStorage
 const removeToken = () => localStorage.removeItem('authToken');
 
-// Function to update UI based on authorization
 const updateUI = () => {
     const token = getToken();
     if (token) {
@@ -389,15 +391,12 @@ const updateUI = () => {
     }
 };
 
-// Function to show auth modal
 const showAuthModal = () => {
     toggleModal(authModal);
 };
 
-// Function to show registration modal
 const showRegisterModal = () => {
     toggleModal(registerModal);
 };
 
-// Initialize when Yandex Maps API is loaded
 ymaps.ready(init);
